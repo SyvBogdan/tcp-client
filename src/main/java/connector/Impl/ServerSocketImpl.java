@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Optional;
 
+import static packet.Packet.toPacket;
+
 /**
  * Created by Boss on 21.04.2018.
  */
@@ -135,8 +137,8 @@ public class ServerSocketImpl {
         }
     }
 
-    private static Packet toPacket(Object obj){
+    /*private static Packet toPacket(Object obj){
         //TODO mapper
         return (Packet) obj;
-    }
+    }*/
 }
