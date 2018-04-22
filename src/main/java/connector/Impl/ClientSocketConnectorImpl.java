@@ -19,7 +19,7 @@ import static packet.Packet.toPacket;
 /**
  * Created by Boss on 22.04.2018.
  */
-public class ClientSocketConnectorImpl implements Connector, Receiver, Transmitter {
+public class ClientSocketConnectorImpl implements Connector /*, Receiver, Transmitter*/ {
 
     public static String DEFAULT_HOST = "127.0.0.1";
     public static int DEFAULT_PORT = 8080;
@@ -28,6 +28,8 @@ public class ClientSocketConnectorImpl implements Connector, Receiver, Transmitt
     private int port;
     private int timeOut;
     private Socket clientSocket;
+    private Transmitter transmitter;
+    private Receiver receiver;
 
     public ClientSocketConnectorImpl() {
         this(DEFAULT_HOST, DEFAULT_PORT);
@@ -42,6 +44,11 @@ public class ClientSocketConnectorImpl implements Connector, Receiver, Transmitt
         this.port = port;
         this.timeOut = timeOut;
         this.clientSocket = getClientSocket();
+    }
+
+    private void configure() throws IOException {
+        this.receiver = new ReceiverImpl(clientSocket.getInputStream());
+        this.transmitter = new TransmitterImpl(clientSocket.getOutputStream());
     }
 
     @Override
@@ -123,6 +130,7 @@ public class ClientSocketConnectorImpl implements Connector, Receiver, Transmitt
         return clientSocket;
     }
 
+    /*
     @Override
     public Packet receive() {
         try(ObjectInputStream is = new ObjectInputStream(getClientSocket().getInputStream())){
@@ -147,4 +155,5 @@ public class ClientSocketConnectorImpl implements Connector, Receiver, Transmitt
             throw new RuntimeException("Message wan't send to Server");
         }
     }
+    */
 }

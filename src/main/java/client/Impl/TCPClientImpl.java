@@ -20,10 +20,12 @@ public class TCPClientImpl implements TCPClient {
         this.connector = connector;
         this.transmitter = transmitter;
         this.receiver = receiver;
+
+        connector.connect();
     }
 
+
     public Packet sendRequest(Packet packet) {
-        connector.connect();
         transmitter.transmit(SerializationUtils.serialize(packet));
         //YourObject yourObject = SerializationUtils.deserialize(data);
 
