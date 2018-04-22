@@ -23,6 +23,7 @@ public class ReceiverImpl implements Receiver {
     public Packet receive() {
         try {
             byte[] byteArr = new byte[inputStream.available()];
+            inputStream.read(byteArr);
             return (Packet) SerializationUtils.deserialize(byteArr);
         } catch (IOException e) {
             throw new ReadStreamException(e);
