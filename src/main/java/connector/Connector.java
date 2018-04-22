@@ -9,6 +9,12 @@ public interface Connector {
 
     void setTimeOut(int milliseconds);
 
+    Receiver getReceiver();
+
+    Transmitter getTransmitter();
+
+    boolean isConnected();
+
     void disconnect();
 
     void reconnect();

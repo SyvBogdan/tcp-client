@@ -1,6 +1,6 @@
 package exceptions;
 
-import static exceptions.CustomExceptionEnum.WRITE_OS_ERROR;
+import static exceptions.Event.WRITE_OS_ERROR;
 
 /**
  * Created by Boss on 22.04.2018.

@@ -1,7 +1,9 @@
 package connector;
 
+import packet.Packet;
+
 public interface Transmitter {
 
-    void transmit(byte[] data);
+    void transmit(Packet data);
 
 }

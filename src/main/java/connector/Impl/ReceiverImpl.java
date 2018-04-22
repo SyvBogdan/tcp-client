@@ -1,9 +1,10 @@
-package connector.Impl;
+package connector.impl;
 
 import connector.Receiver;
 import exceptions.ReadStreamException;
 import org.apache.commons.lang3.SerializationUtils;
 import packet.Packet;
+import packet.PacketImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +25,7 @@ public class ReceiverImpl implements Receiver {
         try {
             byte[] byteArr = new byte[inputStream.available()];
             inputStream.read(byteArr);
-            return (Packet) SerializationUtils.deserialize(byteArr);
+            return new PacketImpl(byteArr);
         } catch (IOException e) {
             throw new ReadStreamException(e);
         }

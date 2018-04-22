@@ -1,7 +1,8 @@
-package connector.Impl;
+package connector.impl;
 
 import connector.Transmitter;
 import exceptions.WriteStreamException;
+import packet.Packet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,14 +20,15 @@ public class TransmitterImpl implements Transmitter {
     }
 
     @Override
-    public void transmit(byte[] data) {
+    public void transmit(Packet packet) {
+
+        byte[] data = packet.getData();
         try {
             outputStream.write(data);
             outputStream.flush();
         } catch (IOException e) {
             throw new WriteStreamException(e);
         }
-
 
     }
 }

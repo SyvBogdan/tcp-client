@@ -1,4 +1,4 @@
-package connector.Impl;
+package connector.impl;
 
 import packet.Packet;
 

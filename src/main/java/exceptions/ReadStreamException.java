@@ -1,6 +1,6 @@
 package exceptions;
 
-import static exceptions.CustomExceptionEnum.READ_IS_ERROR;
+import static exceptions.Event.READ_IS_ERROR;
 
 /**
  * Created by Boss on 22.04.2018.

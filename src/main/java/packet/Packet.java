@@ -22,4 +22,7 @@ public interface Packet extends Serializable{
             throw new RuntimeException("Can't serialize packet to ByteArray");
         }
     }
+
+    byte [] getData();
+
 }

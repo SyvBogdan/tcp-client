@@ -4,6 +4,7 @@ import client.TCPClient;
 import connector.Connector;
 import connector.Receiver;
 import connector.Transmitter;
+import exceptions.OperationException;
 import org.apache.commons.lang3.SerializationUtils;
 import packet.Packet;
 
@@ -13,28 +14,36 @@ import packet.Packet;
 public class TCPClientImpl implements TCPClient {
 
     private Connector connector;
-    private Transmitter transmitter;
-    private Receiver receiver;
 
-    public TCPClientImpl(Connector connector, Transmitter transmitter, Receiver receiver) {
+    public TCPClientImpl(Connector connector) {
         this.connector = connector;
-        this.transmitter = transmitter;
-        this.receiver = receiver;
-
-        connector.connect();
     }
 
-
     public Packet sendRequest(Packet packet) {
-        transmitter.transmit(SerializationUtils.serialize(packet));
-        //YourObject yourObject = SerializationUtils.deserialize(data);
 
-        return receiver.receive();
+        try {
+            synchronized (this) {
+                checkConnection();
+                connector.getTransmitter().transmit(packet);
+                return connector.getReceiver().receive();
+            }
+        } catch (RuntimeException e) {
+            throw new OperationException(e);
+        }
     }
 
     public void setTimeOut(long milliseconds) {
         connector.setTimeOut((int) milliseconds);
     }
+
+    private void transmit(Packet packet) {
+        connector.getTransmitter().transmit(packet);
+    }
+
+    private Packet receive(Packet packet) {
+        return connector.getReceiver().receive();
+    }
+
 
     public void connect() {
         connector.connect();
@@ -43,4 +52,11 @@ public class TCPClientImpl implements TCPClient {
     public void disconnect() {
         connector.disconnect();
     }
+
+    void checkConnection(){
+        if(!connector.isConnected()){
+            connector.reconnect();
+        }
+    }
+
 }
