@@ -11,5 +11,4 @@ public interface TCPClient {
     void connect();
 
     void disconnect();
-
 }

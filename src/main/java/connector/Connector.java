@@ -3,9 +3,11 @@ package connector;
 
 public interface Connector {
 
+    //will be transmit and receive
+
     void connect();
 
-    void setTimeOut(long milliseconds);
+    void setTimeOut(int milliseconds);
 
     void disconnect();
 
